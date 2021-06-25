@@ -26,6 +26,8 @@ class UpdateStatusActivity : AppCompatActivity(),UpdateStatusInterface {
                 it!!.getParcelableArrayList<Data>(Constants.TRACK_STATUS_DATA)
             if (list != null)
                 createList(list)
+
+
         }
 
     }

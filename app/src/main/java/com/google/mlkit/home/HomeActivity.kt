@@ -20,7 +20,7 @@ import org.koin.androidx.viewmodel.ext.android.viewModel
 class HomeActivity : AppCompatActivity() {
     private val homeViewModel: HomeViewModel by viewModel<HomeViewModel>()
     lateinit var binding: ActivityHomeBinding
-    var isCustomer = false
+    private var isCustomer = false
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = DataBindingUtil.setContentView(this, R.layout.activity_home)
@@ -51,7 +51,7 @@ class HomeActivity : AppCompatActivity() {
     private fun getStatus(shipment_id: String) {
         CommonMethods.showLog("==============", "=============getStatus${shipment_id}")
         if (CommonMethods.isNetworkAvailable(this)) {
-            val trackStatusId = HomeRequest(shipment_id!!)
+            val trackStatusId = HomeRequest(shipment_id)
             homeViewModel.trackStatus(trackStatusId)
             if (!homeViewModel.trackStatusResponse.hasObservers()) {
                 homeViewModel.trackStatusResponse.observe(this, {
@@ -70,6 +70,7 @@ class HomeActivity : AppCompatActivity() {
                             if (trackStatusData != null && trackStatusData.size > 0) {
                                 if (isCustomer) {
                                     val intent = Intent(this, ShowStatusActivity::class.java)
+                                    intent.putExtra(Constants.SHIPMENT_ID,shipment_id)
                                     intent.putParcelableArrayListExtra(
                                         Constants.TRACK_STATUS_DATA,
                                         trackStatusData
@@ -77,6 +78,7 @@ class HomeActivity : AppCompatActivity() {
                                     startActivity(intent)
                                 } else {
                                     val intent = Intent(this, UpdateStatusActivity::class.java)
+                                    intent.putExtra(Constants.SHIPMENT_ID,shipment_id)
                                     intent.putParcelableArrayListExtra(
                                         Constants.TRACK_STATUS_DATA,
                                         trackStatusData
