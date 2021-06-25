@@ -2,6 +2,7 @@ package com.google.mlkit.module
 
 import com.google.mlkit.home.HomeViewModel
 import com.google.mlkit.login.LoginViewModel
+import com.google.mlkit.showstatus.UpdateStatusViewModel
 import org.koin.dsl.module
 
 var viewModelModule = module {
@@ -10,4 +11,5 @@ var viewModelModule = module {
         LoginViewModel(get())
     }
     single { HomeViewModel(get()) }
+    single { UpdateStatusViewModel(get()) }
 }

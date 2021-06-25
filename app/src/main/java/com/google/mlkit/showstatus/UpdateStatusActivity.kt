@@ -5,6 +5,7 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.databinding.DataBindingUtil
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.google.mlkit.home.Data
+import com.google.mlkit.home.TrackStatusResponse
 import com.google.mlkit.utils.CommonMethods
 import com.google.mlkit.utils.Constants
 import com.google.mlkit.utils.ResultStatus
@@ -12,7 +13,8 @@ import com.google.mlkit.vision.demo.R
 import com.google.mlkit.vision.demo.databinding.ActivityUpdateStatusBinding
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
-class UpdateStatusActivity : AppCompatActivity(),UpdateStatusInterface {
+class UpdateStatusActivity : AppCompatActivity(), UpdateStatusInterface {
+    private var shipment_id: String = ""
     lateinit var binding: ActivityUpdateStatusBinding
     var list_status = ArrayList<Status>()
     private lateinit var updateStatusAdapter: UpdateStatusAdapter
@@ -32,7 +34,14 @@ class UpdateStatusActivity : AppCompatActivity(),UpdateStatusInterface {
 
     private fun updateStatusResult() {
         if (CommonMethods.isNetworkAvailable(this)) {
-            val updateStatusRequest = UpdateStatusRequest()
+            val updateStatusRequest = UpdateStatusRequest(
+                shipment_id,
+                list_status.get(0).status,
+                list_status.get(1).status,
+                list_status.get(2).status,
+                list_status.get(3).status,
+                list_status.get(4).status
+            )
             updateStatusViewModel.updateStatus(updateStatusRequest)
             if (!updateStatusViewModel.statusResponse.hasObservers()) {
                 updateStatusViewModel.statusResponse.observe(this, {
@@ -46,7 +55,10 @@ class UpdateStatusActivity : AppCompatActivity(),UpdateStatusInterface {
                         }
                         ResultStatus.SUCCESS.ordinal -> {
                             CommonMethods.hideLoader()
-
+                            if (it.data != null) {
+                                val response = it.data as TrackStatusResponse
+                                CommonMethods.showToast(applicationContext, response.message)
+                            }
                         }
                     }
                 })
@@ -58,6 +70,7 @@ class UpdateStatusActivity : AppCompatActivity(),UpdateStatusInterface {
     private fun createList(list: ArrayList<Data>) {
         if (list.size > 0) {
             val data: Data = list.get(0)
+            shipment_id = data.shipment_id!!
             val s1 = Status("In Warehouse", data.in_warehouse!!)
             val s2 = Status("In Route", data.en_route!!)
             val s3 = Status("Arrived", data.arrived!!)
@@ -78,7 +91,7 @@ class UpdateStatusActivity : AppCompatActivity(),UpdateStatusInterface {
 
     private fun setAdapter() {
         binding.recyclerStatus.let {
-            updateStatusAdapter = UpdateStatusAdapter(this@UpdateStatusActivity, list_status,this)
+            updateStatusAdapter = UpdateStatusAdapter(this@UpdateStatusActivity, list_status, this)
             it.layoutManager = LinearLayoutManager(this@UpdateStatusActivity)
             it.adapter = updateStatusAdapter
         }
