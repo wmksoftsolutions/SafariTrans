@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="app_name" translatable="false">MLKit-Vision</string>
+    <string name="app_name" translatable="false">Safari Trans</string>
     <string name="java_entry_title" translatable="false">Run the ML Kit quickstart written in Java</string>
     <string name="kotlin_entry_title" translatable="false">Run the ML Kit quickstart written in Kotlin</string>
     <string name="ok" translatable="false">OK</string>
@@ -147,4 +147,5 @@
     <string name="password_musthave_min">Password must have minimum 6 characters</string>
     <string name="check_interent">Please check your internet connection</string>
     <string name="server_error">Server Error</string>
+    <string name="done"><u>Done</u></string>
 </resources>

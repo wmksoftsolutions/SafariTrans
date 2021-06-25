@@ -7,29 +7,31 @@ import android.view.ViewGroup
 import androidx.databinding.DataBindingUtil
 import androidx.recyclerview.widget.RecyclerView
 import com.google.mlkit.vision.demo.R
+import com.google.mlkit.vision.demo.databinding.RowStatusDoneBinding
+import com.google.mlkit.vision.demo.databinding.RowStatusPendingBinding
 import com.google.mlkit.vision.demo.databinding.ViewStatusDoneBinding
 import com.google.mlkit.vision.demo.databinding.ViewStatusPendingBinding
 
 class UpdateStatusAdapter(var context: Context) : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
 
-    class MyViewHolder(var binding: ViewStatusDoneBinding) : RecyclerView.ViewHolder(binding.root)
-    class MyViewHolder1(var binding: ViewStatusPendingBinding) :
+    class MyViewHolder(var binding: RowStatusDoneBinding) : RecyclerView.ViewHolder(binding.root)
+    class MyViewHolder1(var binding: RowStatusPendingBinding) :
         RecyclerView.ViewHolder(binding.root)
 
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
         if (viewType == 1) {
-            val binding = DataBindingUtil.inflate<ViewStatusDoneBinding>(
+            val binding = DataBindingUtil.inflate<RowStatusDoneBinding>(
                 LayoutInflater.from(parent.context),
-                R.layout.view_status_done,
+                R.layout.row_status_done,
                 parent,
                 false
             )
             return MyViewHolder(binding)
         } else {
-            val binding = DataBindingUtil.inflate<ViewStatusPendingBinding>(
+            val binding = DataBindingUtil.inflate<RowStatusPendingBinding>(
                 LayoutInflater.from(parent.context),
-                R.layout.view_status_pending,
+                R.layout.row_status_pending,
                 parent,
                 false
             )
@@ -47,21 +49,11 @@ class UpdateStatusAdapter(var context: Context) : RecyclerView.Adapter<RecyclerV
 
     override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
         if (holder is MyViewHolder) {
-            setViewHeight(holder.binding.progress, position)
+
         } else if (holder is MyViewHolder1) {
-            setViewHeight(holder.binding.progress, position)
+
         }
 
-    }
-
-    private fun setViewHeight(progress: View, position: Int) {
-        val param = progress.layoutParams
-        if (position == 4) {
-            param.height = context.resources.getDimension(R.dimen.height_progress_small).toInt()
-        } else {
-            param.height = context.resources.getDimension(R.dimen.height_progress).toInt()
-        }
-        progress.layoutParams = param
     }
 
     override fun getItemCount(): Int {
