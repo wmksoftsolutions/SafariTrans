@@ -61,7 +61,7 @@ public class InferenceInfoGraphic extends GraphicOverlay.Graphic {
 
   @Override
   public synchronized void draw(Canvas canvas) {
-    float x = TEXT_SIZE * 0.5f;
+    /*float x = TEXT_SIZE * 0.5f;
     float y = TEXT_SIZE * 1.5f;
 
     canvas.drawText(
@@ -84,6 +84,6 @@ public class InferenceInfoGraphic extends GraphicOverlay.Graphic {
       canvas.drawText("Frame latency: " + frameLatency + " ms", x, y + TEXT_SIZE, textPaint);
     }
     canvas.drawText(
-        "Detector latency: " + detectorLatency + " ms", x, y + TEXT_SIZE * 2, textPaint);
+        "Detector latency: " + detectorLatency + " ms", x, y + TEXT_SIZE * 2, textPaint);*/
   }
 }
