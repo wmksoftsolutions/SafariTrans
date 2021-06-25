@@ -4,6 +4,7 @@ import com.google.mlkit.home.HomeRequest
 import com.google.mlkit.home.TrackStatusResponse
 import com.google.mlkit.login.LoginRequest
 import com.google.mlkit.login.LoginResponse
+import com.google.mlkit.showstatus.UpdateStatusRequest
 import retrofit2.Call
 import retrofit2.http.Body
 import retrofit2.http.POST
@@ -14,5 +15,8 @@ interface ApiInterface {
 
     @POST("ajax.php?action=get_track_status")
     suspend fun getTrackStatus(@Body homeRequest: HomeRequest): TrackStatusResponse
+
+    @POST("ajax.php?action=update_track_status")
+    suspend fun updateTrackStatus(@Body updateStatusRequest: UpdateStatusRequest): TrackStatusResponse
 
 }

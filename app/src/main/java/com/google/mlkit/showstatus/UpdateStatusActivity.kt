@@ -1,19 +1,22 @@
 package com.google.mlkit.showstatus
 
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import androidx.appcompat.app.AppCompatActivity
 import androidx.databinding.DataBindingUtil
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.google.mlkit.home.Data
+import com.google.mlkit.utils.CommonMethods
 import com.google.mlkit.utils.Constants
+import com.google.mlkit.utils.ResultStatus
 import com.google.mlkit.vision.demo.R
-import com.google.mlkit.vision.demo.databinding.ActivityShowStatusBinding
 import com.google.mlkit.vision.demo.databinding.ActivityUpdateStatusBinding
+import org.koin.androidx.viewmodel.ext.android.viewModel
 
-class UpdateStatusActivity : AppCompatActivity() {
+class UpdateStatusActivity : AppCompatActivity(),UpdateStatusInterface {
     lateinit var binding: ActivityUpdateStatusBinding
-    lateinit var updateStatusAdapter: UpdateStatusAdapter
     var list_status = ArrayList<Status>()
+    private lateinit var updateStatusAdapter: UpdateStatusAdapter
+    private val updateStatusViewModel: UpdateStatusViewModel by viewModel<UpdateStatusViewModel>()
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = DataBindingUtil.setContentView(this, R.layout.activity_update_status)
@@ -24,6 +27,32 @@ class UpdateStatusActivity : AppCompatActivity() {
             if (list != null)
                 createList(list)
         }
+
+    }
+
+    private fun updateStatusResult() {
+        if (CommonMethods.isNetworkAvailable(this)) {
+            val updateStatusRequest = UpdateStatusRequest()
+            updateStatusViewModel.updateStatus(updateStatusRequest)
+            if (!updateStatusViewModel.statusResponse.hasObservers()) {
+                updateStatusViewModel.statusResponse.observe(this, {
+                    when (it.status) {
+                        ResultStatus.LOADING.ordinal -> {
+                            CommonMethods.showLoader(this)
+                        }
+                        ResultStatus.ERROR.ordinal -> {
+                            CommonMethods.hideLoader()
+                            CommonMethods.showToast(applicationContext, it.msg)
+                        }
+                        ResultStatus.SUCCESS.ordinal -> {
+                            CommonMethods.hideLoader()
+
+                        }
+                    }
+                })
+            }
+        } else
+            CommonMethods.showToast(applicationContext, getString(R.string.check_interent))
     }
 
     private fun createList(list: ArrayList<Data>) {
@@ -41,16 +70,25 @@ class UpdateStatusActivity : AppCompatActivity() {
             list_status.add(s4)
             list_status.add(s5)
             updateStatusAdapter.notifyDataSetChanged()
+
+
         }
     }
 
 
     private fun setAdapter() {
-        binding.recyclerStatus.apply {
-            updateStatusAdapter = UpdateStatusAdapter(this@UpdateStatusActivity, list_status)
-            layoutManager = LinearLayoutManager(this@UpdateStatusActivity)
-            adapter = updateStatusAdapter
+        binding.recyclerStatus.let {
+            updateStatusAdapter = UpdateStatusAdapter(this@UpdateStatusActivity, list_status,this)
+            it.layoutManager = LinearLayoutManager(this@UpdateStatusActivity)
+            it.adapter = updateStatusAdapter
         }
+
+    }
+
+    override fun onUpdateStatus(position: Int) {
+        list_status.get(position).status = "1"
+        updateStatusAdapter.notifyDataSetChanged()
+        updateStatusResult()
 
     }
 }

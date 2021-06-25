@@ -2,17 +2,14 @@ package com.google.mlkit.showstatus
 
 import android.content.Context
 import android.view.LayoutInflater
-import android.view.View
 import android.view.ViewGroup
 import androidx.databinding.DataBindingUtil
 import androidx.recyclerview.widget.RecyclerView
 import com.google.mlkit.vision.demo.R
 import com.google.mlkit.vision.demo.databinding.RowStatusDoneBinding
 import com.google.mlkit.vision.demo.databinding.RowStatusPendingBinding
-import com.google.mlkit.vision.demo.databinding.ViewStatusDoneBinding
-import com.google.mlkit.vision.demo.databinding.ViewStatusPendingBinding
 
-class UpdateStatusAdapter(var context: Context, var list_status: ArrayList<Status>) :
+class UpdateStatusAdapter(var context: Context, var list_status: ArrayList<Status>, var updateStatusInterface: UpdateStatusInterface) :
     RecyclerView.Adapter<RecyclerView.ViewHolder>() {
 
     class MyViewHolder(var binding: RowStatusDoneBinding) : RecyclerView.ViewHolder(binding.root)
@@ -42,10 +39,10 @@ class UpdateStatusAdapter(var context: Context, var list_status: ArrayList<Statu
 
 
     override fun getItemViewType(position: Int): Int {
-        if (list_status.get(position).status.equals("1"))
-            return 1
+        return if (list_status.get(position).status.equals("1"))
+            1
         else
-            return 0
+            0
     }
 
     override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
@@ -54,7 +51,12 @@ class UpdateStatusAdapter(var context: Context, var list_status: ArrayList<Statu
             holder.binding.status.text = status.name
         } else if (holder is MyViewHolder1) {
             holder.binding.status.text = status.name
+            holder.binding.done.setOnClickListener{
+                updateStatusInterface.onUpdateStatus(position)
+
+            }
         }
+
 
     }
 
