@@ -1,9 +1,12 @@
 package com.google.mlkit.showstatus
 
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import androidx.appcompat.app.AppCompatActivity
 import androidx.databinding.DataBindingUtil
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.google.mlkit.home.Data
+import com.google.mlkit.home.TrackStatusResponse
+import com.google.mlkit.utils.Constants
 import com.google.mlkit.vision.demo.R
 import com.google.mlkit.vision.demo.databinding.ActivityShowStatusBinding
 
@@ -14,11 +17,18 @@ class ShowStatusActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         binding = DataBindingUtil.setContentView(this, R.layout.activity_show_status)
         setAdapter()
+
+        intent.extras.let {
+          val list=  it!!.getParcelableArrayList<ArrayList<Data>>(Constants.TRACK_STATUS_DATA)
+        }
     }
 
     private fun setAdapter() {
-        showStatusAdapter = ShowStatusAdapter(this)
-        binding.recyclerview.layoutManager = LinearLayoutManager(this)
-        binding.recyclerview.adapter = showStatusAdapter
+        binding.recyclerview.apply {
+            showStatusAdapter = ShowStatusAdapter(this@ShowStatusActivity)
+            layoutManager = LinearLayoutManager(this@ShowStatusActivity)
+            adapter = showStatusAdapter
+        }
+
     }
 }

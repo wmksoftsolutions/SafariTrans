@@ -1,5 +1,6 @@
 package com.google.mlkit.retrofit
 
+import com.google.mlkit.home.HomeRequest
 import com.google.mlkit.home.TrackStatusResponse
 import com.google.mlkit.login.LoginRequest
 import com.google.mlkit.login.LoginResponse
@@ -12,6 +13,6 @@ interface ApiInterface {
     suspend fun login(@Body loginRequest: LoginRequest): LoginResponse
 
     @POST("ajax.php?action=get_track_status")
-    fun getTrackStatus(@Body shipment_id: Int): Call<TrackStatusResponse>
+    suspend fun getTrackStatus(@Body homeRequest: HomeRequest): TrackStatusResponse
 
 }
