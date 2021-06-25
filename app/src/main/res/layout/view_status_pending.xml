@@ -20,8 +20,8 @@
 
         <ImageView
             android:id="@+id/progress_circle"
-            android:layout_width="@dimen/value_20"
-            android:layout_height="@dimen/value_20"
+            android:layout_width="@dimen/value_25"
+            android:layout_height="@dimen/value_25"
             android:background="@drawable/gray_circle"
             app:layout_constraintBottom_toBottomOf="@id/progress"
             app:layout_constraintEnd_toEndOf="@id/progress"
@@ -38,7 +38,8 @@
             android:layout_marginEnd="@dimen/value_15"
             android:text="@string/app_name"
             android:textColor="@color/text_color_light"
-            android:textSize="@dimen/size_14"
+            android:textSize="@dimen/size_16"
+            android:textStyle="bold"
             app:layout_constraintBottom_toBottomOf="@id/progress_circle"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toEndOf="@id/progress_circle"
