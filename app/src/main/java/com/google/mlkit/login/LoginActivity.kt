@@ -50,6 +50,7 @@ class LoginActivity : AppCompatActivity() {
                                 ResultStatus.SUCCESS.ordinal -> {
                                     CommonMethods.hideLoader()
                                     CommonMethods.showToast(applicationContext, it.msg)
+                                    CommonMethods.saveUserLogin(this@LoginActivity,true)
                                     startActivity(Intent(this, HomeActivity::class.java))
                                     finish()
                                 }

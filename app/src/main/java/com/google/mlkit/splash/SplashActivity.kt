@@ -5,7 +5,9 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.os.Handler
 import android.os.Looper
+import com.google.mlkit.home.HomeActivity
 import com.google.mlkit.login.LoginActivity
+import com.google.mlkit.utils.CommonMethods
 import com.google.mlkit.vision.demo.R
 
 class SplashActivity : AppCompatActivity() {
@@ -13,7 +15,10 @@ class SplashActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_splash)
         Handler(Looper.getMainLooper()).postDelayed({
-            startActivity(Intent(this@SplashActivity, LoginActivity::class.java))
+            if (CommonMethods.checkUserLogin(this@SplashActivity))
+                startActivity(Intent(this@SplashActivity, HomeActivity::class.java))
+            else
+                startActivity(Intent(this@SplashActivity, LoginActivity::class.java))
             finish()
         }, 3000)
     }

@@ -1,6 +1,7 @@
 package com.google.mlkit.utils
 
 import android.content.Context
+import android.content.SharedPreferences
 import android.net.ConnectivityManager
 import android.net.NetworkCapabilities
 import android.os.Build
@@ -16,10 +17,10 @@ import java.net.UnknownHostException
 import java.net.SocketTimeoutException as SocketTimeoutException1
 
 class CommonMethods {
-    companion object{
+    companion object {
         var customProgressDialog = CustomProgressDialog()
         fun showToast(applicationContext: Context, msg: String) {
-        Toast.makeText(applicationContext,msg,Toast.LENGTH_SHORT).show()
+            Toast.makeText(applicationContext, msg, Toast.LENGTH_SHORT).show()
         }
 
         fun isNetworkAvailable(context: Context): Boolean {
@@ -63,17 +64,18 @@ class CommonMethods {
         fun errorHandler(e: Exception, result: Result, myResponse: MutableLiveData<Result>) {
             result.status = ResultStatus.ERROR.ordinal
             result.data = null
-            when(e){
-                is java.net.SocketTimeoutException ->{
-                   result.msg = MyApplication.applicationContext().getString(R.string.server_error)
-                }
-                is SocketException ->{
-                    result.msg = MyApplication.applicationContext().getString(R.string.check_interent)
-                }
-                is HttpException ->{
+            when (e) {
+                is java.net.SocketTimeoutException -> {
                     result.msg = MyApplication.applicationContext().getString(R.string.server_error)
                 }
-                is UnknownHostException ->{
+                is SocketException -> {
+                    result.msg =
+                        MyApplication.applicationContext().getString(R.string.check_interent)
+                }
+                is HttpException -> {
+                    result.msg = MyApplication.applicationContext().getString(R.string.server_error)
+                }
+                is UnknownHostException -> {
                     result.msg = MyApplication.applicationContext().getString(R.string.server_error)
                 }
 
@@ -83,8 +85,21 @@ class CommonMethods {
 
         }
 
-        fun showLog(tag:String,message:String){
-            Log.e(tag,message)
+        fun showLog(tag: String, message: String) {
+            Log.e(tag, message)
+        }
+
+        fun saveUserLogin(context: Context, b: Boolean) {
+            val pref: SharedPreferences = getSharedPref(context)
+            pref.edit().putBoolean(Constants.isLogin, true).apply()
+        }
+
+        fun checkUserLogin(context: Context): Boolean {
+            return getSharedPref(context).getBoolean(Constants.isLogin, false)
+        }
+
+        private fun getSharedPref(context: Context): SharedPreferences {
+            return context.getSharedPreferences(Constants.PREFRENCE_NAME, Context.MODE_PRIVATE)
         }
 
 
