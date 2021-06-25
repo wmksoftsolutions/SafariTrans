@@ -14,6 +14,8 @@ import org.koin.androidx.viewmodel.ext.android.viewModel
 
 class UpdateStatusActivity : AppCompatActivity() {
     lateinit var binding: ActivityUpdateStatusBinding
+    lateinit var updateStatusAdapter: UpdateStatusAdapter
+    var list_status = ArrayList<Status>()
     private lateinit var updateStatusAdapter: UpdateStatusAdapter
     private val updateStatusViewModel: UpdateStatusViewModel by viewModel<UpdateStatusViewModel>()
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -55,14 +57,28 @@ class UpdateStatusActivity : AppCompatActivity() {
             CommonMethods.showToast(applicationContext, getString(R.string.check_interent))
     }
 
-    private fun createList(list: java.util.ArrayList<Data>) {
-
+    private fun createList(list: ArrayList<Data>) {
+        if (list.size > 0) {
+            val data: Data = list.get(0)
+            val s1 = Status("In Warehouse", data.in_warehouse!!)
+            val s2 = Status("In Route", data.en_route!!)
+            val s3 = Status("Arrived", data.arrived!!)
+            val s4 = Status("Pickup", data.pickup!!)
+            val s5 = Status("Completed", data.completed!!)
+            list_status.clear();
+            list_status.add(s1)
+            list_status.add(s2)
+            list_status.add(s3)
+            list_status.add(s4)
+            list_status.add(s5)
+            updateStatusAdapter.notifyDataSetChanged()
+        }
     }
 
 
     private fun setAdapter() {
         binding.recyclerStatus.apply {
-            updateStatusAdapter = UpdateStatusAdapter(this@UpdateStatusActivity)
+            updateStatusAdapter = UpdateStatusAdapter(this@UpdateStatusActivity, list_status)
             layoutManager = LinearLayoutManager(this@UpdateStatusActivity)
             adapter = updateStatusAdapter
         }
