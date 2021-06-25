@@ -6,7 +6,9 @@ import android.net.NetworkCapabilities
 import android.os.Build
 import android.widget.Toast
 import androidx.lifecycle.MutableLiveData
+import com.google.mlkit.application.MyApplication
 import com.google.mlkit.dialog.CustomProgressDialog
+import com.google.mlkit.vision.demo.R
 import retrofit2.HttpException
 import java.net.SocketException
 import java.net.UnknownHostException
@@ -62,16 +64,16 @@ class CommonMethods {
             result.data = null
             when(e){
                 is java.net.SocketTimeoutException ->{
-                   result.msg = "Server Error"
+                   result.msg = MyApplication.applicationContext().getString(R.string.server_error)
                 }
                 is SocketException ->{
-                    result.msg = "Please check your internet connection"
+                    result.msg = MyApplication.applicationContext().getString(R.string.check_interent)
                 }
                 is HttpException ->{
-                    result.msg = "Server Error"
+                    result.msg = MyApplication.applicationContext().getString(R.string.server_error)
                 }
                 is UnknownHostException ->{
-                    result.msg = "Server Error"
+                    result.msg = MyApplication.applicationContext().getString(R.string.server_error)
                 }
 
             }
