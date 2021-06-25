@@ -141,7 +141,8 @@
     <string name="password">Password</string>
     <string name="remember_me">Remember Me</string>
     <string name="login">Login</string>
-    <string name="scan_code">Scan Code</string>
+    <string name="scan_code">Scan BarCode</string>
+    <string name="track_shipment">Track Shipment</string>
     <string name="username_cant_empty">Username can\'t be empty</string>
     <string name="password_cant_empty">Password can\'t be empty</string>
     <string name="password_musthave_min">Password must have minimum 6 characters</string>

@@ -20,7 +20,7 @@ import org.koin.androidx.viewmodel.ext.android.viewModel
 class HomeActivity : AppCompatActivity() {
     private val homeViewModel: HomeViewModel by viewModel<HomeViewModel>()
     lateinit var binding: ActivityHomeBinding
-    var isCustomer = true
+    var isCustomer = false
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = DataBindingUtil.setContentView(this, R.layout.activity_home)
@@ -36,7 +36,12 @@ class HomeActivity : AppCompatActivity() {
 
             }
 
+        binding.btnTrackShipment.setOnClickListener {
+            isCustomer = true
+            startForResult.launch(Intent(this, CameraXLivePreviewActivity::class.java))
+        }
         binding.btnScancode.setOnClickListener {
+            isCustomer = false
             startForResult.launch(Intent(this, CameraXLivePreviewActivity::class.java))
         }
 
@@ -61,22 +66,30 @@ class HomeActivity : AppCompatActivity() {
                         CommonMethods.hideLoader()
                         val trackStatusResponse = it?.data as TrackStatusResponse
                         val trackStatusData = trackStatusResponse.data
-                        if (isCustomer) {
-                            val intent = Intent(this, ShowStatusActivity::class.java)
-                            intent.putParcelableArrayListExtra(
-                                Constants.TRACK_STATUS_DATA,
-                                trackStatusData
-                            )
-                            startActivity(intent)
+                        if (trackStatusData != null && trackStatusData.size > 0) {
+                            if (isCustomer) {
+                                val intent = Intent(this, ShowStatusActivity::class.java)
+                                intent.putParcelableArrayListExtra(
+                                    Constants.TRACK_STATUS_DATA,
+                                    trackStatusData
+                                )
+                                startActivity(intent)
+                            } else {
+                                val intent = Intent(this, UpdateStatusActivity::class.java)
+                                intent.putParcelableArrayListExtra(
+                                    Constants.TRACK_STATUS_DATA,
+                                    trackStatusData
+                                )
+                                startActivity(intent)
+                            }
                         } else {
-                            startActivity(Intent(this, UpdateStatusActivity::class.java))
+                            CommonMethods.showToast(applicationContext, trackStatusResponse.message)
                         }
                     }
                 }
             })
         } else
-            CommonMethods.showToast(this, getString(R.string.check_interent))
-
+            CommonMethods.showToast(applicationContext, getString(R.string.check_interent))
     }
 
 

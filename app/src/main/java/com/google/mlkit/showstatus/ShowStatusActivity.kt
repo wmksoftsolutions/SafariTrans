@@ -17,10 +17,16 @@ class ShowStatusActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         binding = DataBindingUtil.setContentView(this, R.layout.activity_show_status)
         setAdapter()
-
         intent.extras.let {
-          val list=  it!!.getParcelableArrayList<ArrayList<Data>>(Constants.TRACK_STATUS_DATA)
+            val list: ArrayList<Data>? =
+                it!!.getParcelableArrayList<Data>(Constants.TRACK_STATUS_DATA)
+            if (list != null)
+                createList(list)
         }
+    }
+
+    private fun createList(list: ArrayList<Data>) {
+
     }
 
     private fun setAdapter() {

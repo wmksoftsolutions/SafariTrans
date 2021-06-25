@@ -10,7 +10,7 @@
     <dimen name="height_progress">70dp</dimen>
     <dimen name="height_progress_small">40dp</dimen>
     <dimen name="width_progress">3dp</dimen>
-    <dimen name="width_button">150dp</dimen>
+    <dimen name="width_button">200dp</dimen>
     <dimen name="scan_height">170dp</dimen>
     <dimen name="value_10">10dp</dimen>
     <dimen name="value_15">15dp</dimen>

@@ -27,7 +27,7 @@
 
     <application
         android:name="com.google.mlkit.application.MyApplication"
-        android:icon="@drawable/logo_mlkit"
+        android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
         android:theme="@style/Theme.AppCompat">
         <activity android:name="com.google.mlkit.showstatus.UpdateStatusActivity"></activity>
