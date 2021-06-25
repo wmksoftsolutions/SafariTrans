@@ -30,7 +30,7 @@ class HomeActivity : AppCompatActivity() {
                 if (result.resultCode == Activity.RESULT_OK) {
                     if (result.data != null && result.data!!.hasExtra("code")) {
                         val code = result.data!!.getStringExtra("code")
-                        getStatus(code)
+                        getStatus(code!!)
                     }
                 }
 
@@ -48,10 +48,10 @@ class HomeActivity : AppCompatActivity() {
 
     }
 
-    private fun getStatus(shipment_id: String?) {
+    private fun getStatus(shipment_id: String) {
         CommonMethods.showLog("==============", "=============getStatus${shipment_id}")
         if (CommonMethods.isNetworkAvailable(this)) {
-            val trackStatusId = HomeRequest("5")
+            val trackStatusId = HomeRequest(shipment_id!!)
             homeViewModel.trackStatus(trackStatusId)
             if (!homeViewModel.trackStatusResponse.hasActiveObservers()) {
                 homeViewModel.trackStatusResponse.observe(this, {

@@ -10,7 +10,8 @@ import com.google.mlkit.vision.demo.R
 import com.google.mlkit.vision.demo.databinding.ViewStatusDoneBinding
 import com.google.mlkit.vision.demo.databinding.ViewStatusPendingBinding
 
-class ShowStatusAdapter(var context: Context) : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
+class ShowStatusAdapter(var context: Context, var list_status: ArrayList<Status>) :
+    RecyclerView.Adapter<RecyclerView.ViewHolder>() {
 
     class MyViewHolder(var binding: ViewStatusDoneBinding) : RecyclerView.ViewHolder(binding.root)
     class MyViewHolder1(var binding: ViewStatusPendingBinding) :
@@ -39,17 +40,20 @@ class ShowStatusAdapter(var context: Context) : RecyclerView.Adapter<RecyclerVie
 
 
     override fun getItemViewType(position: Int): Int {
-        if (position < 3)
+        if (list_status.get(position).status.equals("1"))
             return 1
         else
             return 0
     }
 
     override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
+        val status = list_status.get(position)
         if (holder is MyViewHolder) {
             setViewHeight(holder.binding.progress, position)
+            holder.binding.status.text = status.name
         } else if (holder is MyViewHolder1) {
             setViewHeight(holder.binding.progress, position)
+            holder.binding.status.text = status.name
         }
 
     }
@@ -65,6 +69,6 @@ class ShowStatusAdapter(var context: Context) : RecyclerView.Adapter<RecyclerVie
     }
 
     override fun getItemCount(): Int {
-        return 5
+        return list_status.size
     }
 }
