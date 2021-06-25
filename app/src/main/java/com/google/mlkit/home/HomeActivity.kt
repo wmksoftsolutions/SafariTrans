@@ -53,41 +53,46 @@ class HomeActivity : AppCompatActivity() {
         if (CommonMethods.isNetworkAvailable(this)) {
             val trackStatusId = HomeRequest("5")
             homeViewModel.trackStatus(trackStatusId)
-            homeViewModel.trackStatusResponse.observe(this, {
-                when (it.status) {
-                    ResultStatus.LOADING.ordinal -> {
-                        CommonMethods.showLoader(this)
-                    }
-                    ResultStatus.ERROR.ordinal -> {
-                        CommonMethods.hideLoader()
-                        CommonMethods.showToast(applicationContext, it.msg)
-                    }
-                    ResultStatus.SUCCESS.ordinal -> {
-                        CommonMethods.hideLoader()
-                        val trackStatusResponse = it?.data as TrackStatusResponse
-                        val trackStatusData = trackStatusResponse.data
-                        if (trackStatusData != null && trackStatusData.size > 0) {
-                            if (isCustomer) {
-                                val intent = Intent(this, ShowStatusActivity::class.java)
-                                intent.putParcelableArrayListExtra(
-                                    Constants.TRACK_STATUS_DATA,
-                                    trackStatusData
-                                )
-                                startActivity(intent)
+            if (!homeViewModel.trackStatusResponse.hasActiveObservers()) {
+                homeViewModel.trackStatusResponse.observe(this, {
+                    when (it.status) {
+                        ResultStatus.LOADING.ordinal -> {
+                            CommonMethods.showLoader(this)
+                        }
+                        ResultStatus.ERROR.ordinal -> {
+                            CommonMethods.hideLoader()
+                            CommonMethods.showToast(applicationContext, it.msg)
+                        }
+                        ResultStatus.SUCCESS.ordinal -> {
+                            CommonMethods.hideLoader()
+                            val trackStatusResponse = it?.data as TrackStatusResponse
+                            val trackStatusData = trackStatusResponse.data
+                            if (trackStatusData != null && trackStatusData.size > 0) {
+                                if (isCustomer) {
+                                    val intent = Intent(this, ShowStatusActivity::class.java)
+                                    intent.putParcelableArrayListExtra(
+                                        Constants.TRACK_STATUS_DATA,
+                                        trackStatusData
+                                    )
+                                    startActivity(intent)
+                                } else {
+                                    val intent = Intent(this, UpdateStatusActivity::class.java)
+                                    intent.putParcelableArrayListExtra(
+                                        Constants.TRACK_STATUS_DATA,
+                                        trackStatusData
+                                    )
+                                    startActivity(intent)
+                                }
                             } else {
-                                val intent = Intent(this, UpdateStatusActivity::class.java)
-                                intent.putParcelableArrayListExtra(
-                                    Constants.TRACK_STATUS_DATA,
-                                    trackStatusData
+                                CommonMethods.showToast(
+                                    applicationContext,
+                                    trackStatusResponse.message
                                 )
-                                startActivity(intent)
                             }
-                        } else {
-                            CommonMethods.showToast(applicationContext, trackStatusResponse.message)
                         }
                     }
-                }
-            })
+                })
+            }
         } else
             CommonMethods.showToast(applicationContext, getString(R.string.check_interent))
     }
