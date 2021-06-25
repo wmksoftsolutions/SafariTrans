@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/white"
+        android:paddingStart="@dimen/value_10"
+        android:paddingEnd="@dimen/value_10">
+
+        <View
+            android:id="@+id/progress"
+            android:layout_width="@dimen/width_progress"
+            android:layout_height="@dimen/height_progress"
+            android:layout_marginStart="@dimen/value_10"
+            android:background="@color/progressDone"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+
+        <ImageView
+            android:id="@+id/progress_circle"
+            android:layout_width="@dimen/value_20"
+            android:layout_height="@dimen/value_20"
+            android:background="@drawable/green_circle"
+            app:layout_constraintBottom_toBottomOf="@id/progress"
+            app:layout_constraintEnd_toEndOf="@id/progress"
+            app:layout_constraintStart_toStartOf="@id/progress"
+            app:layout_constraintTop_toTopOf="@id/progress"
+            app:layout_constraintVertical_bias="0.25" />
+
+
+        <TextView
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/value_15"
+            android:layout_marginEnd="@dimen/value_15"
+            android:text="@string/app_name"
+            android:textColor="@color/black"
+            app:layout_constraintBottom_toBottomOf="@id/progress_circle"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@id/progress_circle"
+            app:layout_constraintTop_toTopOf="@id/progress_circle" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>
