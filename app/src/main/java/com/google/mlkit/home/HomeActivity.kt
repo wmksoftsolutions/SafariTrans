@@ -2,24 +2,25 @@ package com.google.mlkit.home
 
 import android.app.Activity
 import android.content.Intent
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.util.Log
 import androidx.activity.result.ActivityResult
-import androidx.activity.result.ActivityResultCallback
-import androidx.activity.result.contract.ActivityResultContracts
 import androidx.activity.result.contract.ActivityResultContracts.StartActivityForResult
+import androidx.appcompat.app.AppCompatActivity
 import androidx.databinding.DataBindingUtil
 import com.google.mlkit.showstatus.ShowStatusActivity
 import com.google.mlkit.showstatus.UpdateStatusActivity
+import com.google.mlkit.utils.CommonMethods
+import com.google.mlkit.utils.Constants
+import com.google.mlkit.utils.ResultStatus
 import com.google.mlkit.vision.demo.R
 import com.google.mlkit.vision.demo.databinding.ActivityHomeBinding
 import com.google.mlkit.vision.demo.kotlin.CameraXLivePreviewActivity
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
 class HomeActivity : AppCompatActivity() {
-    val homeViewModel: HomeViewModel by viewModel<HomeViewModel>()
+    private val homeViewModel: HomeViewModel by viewModel<HomeViewModel>()
     lateinit var binding: ActivityHomeBinding
+    var isCustomer = true
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = DataBindingUtil.setContentView(this, R.layout.activity_home)
@@ -35,16 +36,48 @@ class HomeActivity : AppCompatActivity() {
 
             }
 
-        binding.btnScancode.setOnClickListener({
+        binding.btnScancode.setOnClickListener {
             startForResult.launch(Intent(this, CameraXLivePreviewActivity::class.java))
-        })
+        }
 
 
     }
 
     private fun getStatus(shipment_id: String?) {
-        Log.e("==============", "=============getStatus" + shipment_id)
-//        startActivity(Intent(this,ShowStatusActivity::class.java))
-        startActivity(Intent(this,UpdateStatusActivity::class.java))
+        CommonMethods.showLog("==============", "=============getStatus${shipment_id}")
+        if (CommonMethods.isNetworkAvailable(this)) {
+            val trackStatusId = HomeRequest("5")
+            homeViewModel.trackStatus(trackStatusId)
+            homeViewModel.trackStatusResponse.observe(this, {
+                when (it.status) {
+                    ResultStatus.LOADING.ordinal -> {
+                        CommonMethods.showLoader(this)
+                    }
+                    ResultStatus.ERROR.ordinal -> {
+                        CommonMethods.hideLoader()
+                        CommonMethods.showToast(applicationContext, it.msg)
+                    }
+                    ResultStatus.SUCCESS.ordinal -> {
+                        CommonMethods.hideLoader()
+                        val trackStatusResponse = it?.data as TrackStatusResponse
+                        val trackStatusData = trackStatusResponse.data
+                        if (isCustomer) {
+                            val intent = Intent(this, ShowStatusActivity::class.java)
+                            intent.putParcelableArrayListExtra(
+                                Constants.TRACK_STATUS_DATA,
+                                trackStatusData
+                            )
+                            startActivity(intent)
+                        } else {
+                            startActivity(Intent(this, UpdateStatusActivity::class.java))
+                        }
+                    }
+                }
+            })
+        } else
+            CommonMethods.showToast(this, getString(R.string.check_interent))
+
     }
+
+
 }

@@ -4,6 +4,7 @@ import android.content.Context
 import android.net.ConnectivityManager
 import android.net.NetworkCapabilities
 import android.os.Build
+import android.util.Log
 import android.widget.Toast
 import androidx.lifecycle.MutableLiveData
 import com.google.mlkit.application.MyApplication
@@ -80,6 +81,10 @@ class CommonMethods {
 
             myResponse.value = result
 
+        }
+
+        fun showLog(tag:String,message:String){
+            Log.e(tag,message)
         }
 
 
