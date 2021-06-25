@@ -53,7 +53,7 @@ class HomeActivity : AppCompatActivity() {
         if (CommonMethods.isNetworkAvailable(this)) {
             val trackStatusId = HomeRequest(shipment_id!!)
             homeViewModel.trackStatus(trackStatusId)
-            if (!homeViewModel.trackStatusResponse.hasActiveObservers()) {
+            if (!homeViewModel.trackStatusResponse.hasObservers()) {
                 homeViewModel.trackStatusResponse.observe(this, {
                     when (it.status) {
                         ResultStatus.LOADING.ordinal -> {
