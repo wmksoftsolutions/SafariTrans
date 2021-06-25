@@ -29,6 +29,9 @@ class UpdateStatusActivity : AppCompatActivity(), UpdateStatusInterface {
             if (list != null)
                 createList(list)
 
+            val shipmentID = it.getString(Constants.SHIPMENT_ID)
+            binding.status.text = getString(R.string.shipmentID).plus(shipmentID)
+
 
         }
 

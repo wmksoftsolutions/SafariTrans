@@ -5,7 +5,6 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.databinding.DataBindingUtil
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.google.mlkit.home.Data
-import com.google.mlkit.home.TrackStatusResponse
 import com.google.mlkit.utils.Constants
 import com.google.mlkit.vision.demo.R
 import com.google.mlkit.vision.demo.databinding.ActivityShowStatusBinding
@@ -23,6 +22,9 @@ class ShowStatusActivity : AppCompatActivity() {
                 it!!.getParcelableArrayList<Data>(Constants.TRACK_STATUS_DATA)
             if (list != null)
                 createList(list)
+
+            val shipmentID = it.getString(Constants.SHIPMENT_ID)
+            binding.status.text = getString(R.string.shipmentID).plus(shipmentID)
         }
     }
 
@@ -46,7 +48,7 @@ class ShowStatusActivity : AppCompatActivity() {
 
     private fun setAdapter() {
         binding.recyclerview.apply {
-            showStatusAdapter = ShowStatusAdapter(this@ShowStatusActivity,list_status)
+            showStatusAdapter = ShowStatusAdapter(this@ShowStatusActivity, list_status)
             layoutManager = LinearLayoutManager(this@ShowStatusActivity)
             adapter = showStatusAdapter
         }
