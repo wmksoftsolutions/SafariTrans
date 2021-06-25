@@ -12,9 +12,8 @@ import com.google.mlkit.vision.demo.R
 import com.google.mlkit.vision.demo.databinding.ActivityUpdateStatusBinding
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
-class UpdateStatusActivity : AppCompatActivity() {
+class UpdateStatusActivity : AppCompatActivity(),UpdateStatusInterface {
     lateinit var binding: ActivityUpdateStatusBinding
-    lateinit var updateStatusAdapter: UpdateStatusAdapter
     var list_status = ArrayList<Status>()
     private lateinit var updateStatusAdapter: UpdateStatusAdapter
     private val updateStatusViewModel: UpdateStatusViewModel by viewModel<UpdateStatusViewModel>()
@@ -29,7 +28,6 @@ class UpdateStatusActivity : AppCompatActivity() {
                 createList(list)
         }
 
-        updateStatusResult()
     }
 
     private fun updateStatusResult() {
@@ -72,16 +70,25 @@ class UpdateStatusActivity : AppCompatActivity() {
             list_status.add(s4)
             list_status.add(s5)
             updateStatusAdapter.notifyDataSetChanged()
+
+
         }
     }
 
 
     private fun setAdapter() {
-        binding.recyclerStatus.apply {
-            updateStatusAdapter = UpdateStatusAdapter(this@UpdateStatusActivity, list_status)
-            layoutManager = LinearLayoutManager(this@UpdateStatusActivity)
-            adapter = updateStatusAdapter
+        binding.recyclerStatus.let {
+            updateStatusAdapter = UpdateStatusAdapter(this@UpdateStatusActivity, list_status,this)
+            it.layoutManager = LinearLayoutManager(this@UpdateStatusActivity)
+            it.adapter = updateStatusAdapter
         }
+
+    }
+
+    override fun onUpdateStatus(position: Int) {
+        list_status.get(position).status = "1"
+        updateStatusAdapter.notifyDataSetChanged()
+        updateStatusResult()
 
     }
 }
