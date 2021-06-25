@@ -8,9 +8,8 @@ import retrofit2.http.Body
 import retrofit2.http.POST
 
 interface ApiInterface {
-
     @POST("ajax.php?action=login_api")
-    fun login(@Body loginRequest: LoginRequest): Call<LoginResponse>
+    suspend fun login(@Body loginRequest: LoginRequest): LoginResponse
 
     @POST("ajax.php?action=get_track_status")
     fun getTrackStatus(@Body shipment_id: Int): Call<TrackStatusResponse>
