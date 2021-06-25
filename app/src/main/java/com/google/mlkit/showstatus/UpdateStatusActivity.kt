@@ -105,7 +105,7 @@ class UpdateStatusActivity : AppCompatActivity(), UpdateStatusInterface {
 
     override fun onUpdateStatus(position: Int) {
         list_status.get(position).status = "1"
-        updateStatusAdapter.notifyDataSetChanged()
+        updateStatusAdapter.refresh()
         updateStatusResult()
 
     }
