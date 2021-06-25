@@ -10,15 +10,20 @@
 
         <TextView
             android:id="@+id/status"
-            android:layout_width="0dp"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="@dimen/value_15"
             android:layout_marginEnd="@dimen/value_15"
-            android:textColor="@color/black"
+            android:textColor="@color/white"
             android:textSize="@dimen/size_14"
             android:textStyle="bold"
+            android:background="@color/button_color"
+            android:paddingStart="@dimen/value_15"
+            android:paddingTop="@dimen/value_5"
+            android:paddingEnd="@dimen/value_15"
+            android:paddingBottom="@dimen/value_5"
             android:layout_marginTop="@dimen/value_10"
-            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"/>
 
 

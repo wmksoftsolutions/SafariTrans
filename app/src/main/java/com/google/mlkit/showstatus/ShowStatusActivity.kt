@@ -24,7 +24,7 @@ class ShowStatusActivity : AppCompatActivity() {
                 createList(list)
 
             val shipmentID = it.getString(Constants.SHIPMENT_ID)
-            binding.status.text = getString(R.string.shipmentID).plus(shipmentID)
+            binding.status.text = getString(R.string.shipmentID).plus(" $shipmentID")
         }
     }
 
