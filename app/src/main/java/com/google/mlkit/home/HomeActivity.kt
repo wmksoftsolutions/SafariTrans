@@ -11,6 +11,7 @@ import androidx.activity.result.contract.ActivityResultContracts
 import androidx.activity.result.contract.ActivityResultContracts.StartActivityForResult
 import androidx.databinding.DataBindingUtil
 import com.google.mlkit.showstatus.ShowStatusActivity
+import com.google.mlkit.showstatus.UpdateStatusActivity
 import com.google.mlkit.vision.demo.R
 import com.google.mlkit.vision.demo.databinding.ActivityHomeBinding
 import com.google.mlkit.vision.demo.kotlin.CameraXLivePreviewActivity
@@ -35,9 +36,7 @@ class HomeActivity : AppCompatActivity() {
             }
 
         binding.btnScancode.setOnClickListener({
-
             startForResult.launch(Intent(this, CameraXLivePreviewActivity::class.java))
-
         })
 
 
@@ -45,6 +44,7 @@ class HomeActivity : AppCompatActivity() {
 
     private fun getStatus(shipment_id: String?) {
         Log.e("==============", "=============getStatus" + shipment_id)
-        startActivity(Intent(this,ShowStatusActivity::class.java))
+//        startActivity(Intent(this,ShowStatusActivity::class.java))
+        startActivity(Intent(this,UpdateStatusActivity::class.java))
     }
 }
