@@ -7,12 +7,11 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import com.google.mlkit.home.Data
 import com.google.mlkit.utils.Constants
 import com.google.mlkit.vision.demo.R
-import com.google.mlkit.vision.demo.databinding.ActivityShowStatusBinding
 import com.google.mlkit.vision.demo.databinding.ActivityUpdateStatusBinding
 
 class UpdateStatusActivity : AppCompatActivity() {
     lateinit var binding: ActivityUpdateStatusBinding
-    lateinit var updateStatusAdapter: UpdateStatusAdapter
+    private lateinit var updateStatusAdapter: UpdateStatusAdapter
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = DataBindingUtil.setContentView(this, R.layout.activity_update_status)
