@@ -9,7 +9,7 @@ import com.google.mlkit.utils.ResultStatus
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
-class UpdateStatusViewModel @Inject constructor(private val updateStatusViewModelRepository: UpdateStatusViewModelRepository) :
+class UpdateStatusViewModel @Inject constructor(private val updateStatusViewModelRepository: UpdateStatusRepository) :
     ViewModel() {
     var statusResponse: MutableLiveData<Result> = MutableLiveData()
 
