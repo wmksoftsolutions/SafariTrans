@@ -64,11 +64,11 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="@dimen/value_20"
                 android:background="@drawable/shape_edittext"
+                android:drawableStart="@drawable/ic_password"
+                android:drawablePadding="@dimen/value_5"
                 android:imeOptions="actionDone"
                 app:hintAnimationEnabled="false"
                 app:hintEnabled="false"
-                android:drawableStart="@drawable/ic_password"
-                android:drawablePadding="@dimen/value_5"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/et_username"
@@ -79,40 +79,49 @@
                     android:id="@+id/et_password"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:background="@null"
                     android:layout_marginStart="@dimen/value_10"
                     android:layout_marginEnd="@dimen/value_10"
+                    android:background="@null"
                     android:drawableStart="@drawable/ic_password"
                     android:drawablePadding="@dimen/value_5"
-                    android:textColor="@color/text_color"
-                    android:textColorHint="@color/hint_color"
+                    android:hint="@string/password"
                     android:inputType="textPassword"
                     android:maxLength="30"
-                    android:textSize="@dimen/size_14"
-                    android:hint="@string/password" />
+                    android:textColor="@color/text_color"
+                    android:textColorHint="@color/hint_color"
+                    android:textSize="@dimen/size_14" />
+
             </com.google.android.material.textfield.TextInputLayout>
 
 
-            <EditText
-                android:layout_width="match_parent"
+            <TextView
+                android:id="@+id/forgot_password"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="@dimen/value_20"
-                android:background="@drawable/shape_edittext"
-                android:drawableStart="@drawable/ic_password"
-                android:drawablePadding="@dimen/value_5"
-                android:hint="@string/password"
-                android:inputType="textPassword|textImeMultiLine"
-                android:paddingStart="@dimen/value_10"
-                android:paddingTop="@dimen/value_10"
-                android:paddingEnd="@dimen/value_15"
-                android:visibility="gone"
-                android:paddingBottom="@dimen/value_10"
-                android:textColor="@color/text_color"
-                android:textColorHint="@color/hint_color"
-                android:textSize="@dimen/size_14"
+                android:layout_marginTop="@dimen/value_10"
+                android:layout_marginEnd="@dimen/value_10"
+                android:padding="@dimen/value_10"
+                android:text="@string/forgot_password"
+                android:textColor="@color/white"
+                android:textSize="@dimen/size_10"
                 app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/et_password2" />
+
+
+            <androidx.appcompat.widget.AppCompatCheckBox
+                android:id="@+id/rember_me"
+                android:theme="@style/MyCheckbox"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/value_15"
+                android:layout_marginTop="@dimen/value_10"
+                android:padding="@dimen/value_10"
+                android:text="@string/remember_me"
+                android:textColor="@color/button_color"
+                android:textSize="@dimen/size_10"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/et_username" />
+                app:layout_constraintTop_toBottomOf="@id/et_password2" />
+
 
             <androidx.appcompat.widget.AppCompatButton
                 android:id="@+id/btn_login"
@@ -132,7 +141,7 @@
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/et_password2" />
+                app:layout_constraintTop_toBottomOf="@id/forgot_password" />
 
 
         </androidx.constraintlayout.widget.ConstraintLayout>

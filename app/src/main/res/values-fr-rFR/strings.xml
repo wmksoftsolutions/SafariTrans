@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">Safari Trans</string>
+    <string name="ok" translatable="false">d\'accord</string>
+    <string name="permission_camera_rationale" translatable="false">L\'accès à la caméra est nécessaire pour la détection</string>
+    <string name="no_camera_permission" translatable="false">Cette application ne peut pas s\'exécuter car elle n\'a pas l\'autorisation de la caméra. L\'application va maintenant se fermer.</string>
+    <string name="low_storage_error" translatable="false">Les dépendances du détecteur de visage ne peuvent pas être téléchargées en raison du faible stockage de l\'appareil</string>
+    <string name="username">Nom d\'utilisateur</string>
+    <string name="password">Mot de passe</string>
+    <string name="remember_me">Souviens-toi de moi</string>
+    <string name="login">Connexion</string>
+    <string name="scan_code">Scanner le code-barres</string>
+    <string name="track_shipment">" Suivi de livraison"</string>
+    <string name="username_cant_empty">Le nom d\'utilisateur ne peut pas être vide</string>
+    <string name="password_cant_empty">Le mot de passe ne peut pas être vide</string>
+    <string name="password_musthave_min">Le mot de passe doit avoir au moins 6 caractères</string>
+    <string name="check_interent">S\'il vous plait, vérifiez votre connexion internet</string>
+    <string name="server_error">erreur du serveur</string>
+    <string name="no_data_found">Aucune donnée disponible</string>
+    <string name="done"><u>Fait</u></string>
+    <string name="shipmentID">ID d\'expédition:</string>
+    <string name="english">English</string>
+    <string name="french">Francais</string>
+    <string name="forgot_password">Mot de passe oublié?</string>
+</resources>

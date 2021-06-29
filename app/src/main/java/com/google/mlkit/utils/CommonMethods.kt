@@ -2,18 +2,22 @@ package com.google.mlkit.utils
 
 import android.content.Context
 import android.content.SharedPreferences
+import android.content.res.Resources
 import android.net.ConnectivityManager
 import android.net.NetworkCapabilities
 import android.os.Build
+import android.preference.PreferenceManager
 import android.util.Log
 import android.widget.Toast
 import androidx.lifecycle.MutableLiveData
 import com.google.mlkit.application.MyApplication
 import com.google.mlkit.dialog.CustomProgressDialog
+import com.google.mlkit.laguage.LanguageModel
 import com.google.mlkit.vision.demo.R
 import retrofit2.HttpException
 import java.net.SocketException
 import java.net.UnknownHostException
+import java.util.*
 import java.net.SocketTimeoutException as SocketTimeoutException1
 
 class CommonMethods {
@@ -100,6 +104,41 @@ class CommonMethods {
 
         private fun getSharedPref(context: Context): SharedPreferences {
             return context.getSharedPreferences(Constants.PREFRENCE_NAME, Context.MODE_PRIVATE)
+        }
+
+
+        fun changeLanguage(context: Context, language: LanguageModel) {
+            val locale = Locale(language.language)
+            Locale.setDefault(locale)
+            val resources: Resources = context.getResources()
+            val config = resources.configuration
+            config.locale=locale
+            resources.updateConfiguration(config, resources.displayMetrics)
+        }
+
+
+        /*
+      * this method is used to save the language set by user
+      * */
+        fun saveLanguageInPref(context: Context, language: LanguageModel) {
+            val editor = getSharedPref(context).edit()
+            editor.putString(Constants.LANGUAGE, language.language)
+            editor.putString(Constants.LANGUAGE_NAME, language.languageName)
+            editor.apply()
+        }
+
+        /*
+        * this method is used to get  language set by user
+        * */
+        fun getLanguageFromPref(context: Context): String? {
+            return getSharedPref(context).getString(Constants.LANGUAGE, "")
+        }
+
+        /*
+        * this method is used to get  language set by user
+        * */
+        fun getLanguageNameFromPref(context: Context): String? {
+            return getSharedPref(context).getString(Constants.LANGUAGE_NAME, "")
         }
 
 

@@ -2,6 +2,8 @@ package com.google.mlkit.login
 
 import android.content.Intent
 import android.os.Bundle
+import android.widget.CheckBox
+import android.widget.RadioGroup
 import androidx.appcompat.app.AppCompatActivity
 import androidx.databinding.DataBindingUtil
 import com.google.mlkit.home.HomeActivity
@@ -14,10 +16,15 @@ import org.koin.androidx.viewmodel.ext.android.viewModel
 class LoginActivity : AppCompatActivity() {
     private val loginViewModel: LoginViewModel by viewModel<LoginViewModel>()
     private lateinit var binding: ActivityLoginBinding
+    private var isRemeber = false
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = DataBindingUtil.setContentView(this, R.layout.activity_login)
 
+        binding.remberMe.setOnCheckedChangeListener { compoundButton, b ->
+            isRemeber = b
+
+        }
         binding.btnLogin.setOnClickListener {
             val username = binding.etUsername.text.toString().trim()
             val password = binding.etPassword.text.toString().trim()
@@ -50,7 +57,8 @@ class LoginActivity : AppCompatActivity() {
                                 ResultStatus.SUCCESS.ordinal -> {
                                     CommonMethods.hideLoader()
                                     CommonMethods.showToast(applicationContext, it.msg)
-                                    CommonMethods.saveUserLogin(this@LoginActivity,true)
+                                    if (isRemeber)
+                                        CommonMethods.saveUserLogin(this@LoginActivity, true)
                                     startActivity(Intent(this, HomeActivity::class.java))
                                     finish()
                                 }

@@ -1,9 +1,22 @@
 <resources xmlns:tools="http://schemas.android.com/tools">
-    <style name="AppTheme" parent="Theme.AppCompat.NoActionBar"/>
+
+    <style name="AppTheme" parent="Theme.AppCompat.NoActionBar">
+        <item name="android:colorPrimary">@color/colorPrimary</item>
+        <item name="android:colorPrimaryDark">@color/colorPrimaryDark</item>
+        <item name="android:colorAccent">@color/colorAccent</item>
+
+    </style>
 
     <style name="CustomProgressBarTheme">
         <item name="android:windowLightStatusBar" tools:targetApi="m">false</item>
         <item name="android:windowBackground">@android:color/transparent</item>
 
+    </style>
+
+    <style name="MyCheckbox" parent="@style/Widget.AppCompat.CompoundButton.CheckBox">
+        <item name="android:colorControlNormal">@color/button_color</item>
+        <item name="android:colorControlActivated">@color/button_color</item>
+        <item name="android:colorControlHighlight">@color/button_color</item>
+        <item name="android:textAppearance">@style/TextAppearance.AppCompat</item>
     </style>
 </resources>

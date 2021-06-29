@@ -7,7 +7,6 @@ import android.os.Build.VERSION
 import android.os.Build.VERSION_CODES
 import android.os.Bundle
 import android.util.Log
-import android.widget.ImageView
 import android.widget.Toast
 import androidx.annotation.RequiresApi
 import androidx.appcompat.app.AppCompatActivity
@@ -26,8 +25,6 @@ import com.google.mlkit.common.MlKitException
 import com.google.mlkit.vision.demo.*
 import com.google.mlkit.vision.demo.kotlin.barcodescanner.BarcodeScannerProcessor
 import com.google.mlkit.vision.demo.preference.PreferenceUtils
-import com.google.mlkit.vision.demo.preference.SettingsActivity
-import com.google.mlkit.vision.demo.preference.SettingsActivity.LaunchSource
 import java.util.*
 
 /** Live preview demo app for ML Kit APIs using CameraX.  */
@@ -94,7 +91,7 @@ class CameraXLivePreviewActivity :
                 }
             )
 
-        val settingsButton = findViewById<ImageView>(R.id.settings_button)
+       /* val settingsButton = findViewById<ImageView>(R.id.settings_button)
         settingsButton.setOnClickListener {
             val intent =
                 Intent(applicationContext, SettingsActivity::class.java)
@@ -103,7 +100,7 @@ class CameraXLivePreviewActivity :
                 LaunchSource.CAMERAX_LIVE_PREVIEW
             )
             startActivity(intent)
-        }
+        }*/
 
         if (!allPermissionsGranted()) {
             runtimePermissions
