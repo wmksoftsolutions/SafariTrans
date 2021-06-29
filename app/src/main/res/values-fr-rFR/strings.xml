@@ -11,6 +11,7 @@
     <string name="login">Connexion</string>
     <string name="scan_code">Scanner le code-barres</string>
     <string name="track_shipment">" Suivi de livraison"</string>
+    <string name="scan_whole_container">Scannez le conteneur entier</string>
     <string name="username_cant_empty">Le nom d\'utilisateur ne peut pas être vide</string>
     <string name="password_cant_empty">Le mot de passe ne peut pas être vide</string>
     <string name="password_musthave_min">Le mot de passe doit avoir au moins 6 caractères</string>
@@ -22,4 +23,9 @@
     <string name="english">English</string>
     <string name="french">Francais</string>
     <string name="forgot_password">Mot de passe oublié?</string>
+    <string name="alreadyScannedCode">Code déjà analysé</string>
+    <string name="count">Compter</string>
+    <string name="counter">Compteur</string>
+    <string name="no_code_scanned">Aucun code scanné</string>
+    <string name="update_status">État de la mise à jour</string>
 </resources>

@@ -2,7 +2,7 @@ package com.google.mlkit.module
 
 import com.google.mlkit.home.HomeRepository
 import com.google.mlkit.login.LoginRepository
-import com.google.mlkit.showstatus.UpdateStatusRepository
+import com.google.mlkit.updatestatus.UpdateStatusRepository
 import org.koin.dsl.module
 
 val repositoryModule = module {

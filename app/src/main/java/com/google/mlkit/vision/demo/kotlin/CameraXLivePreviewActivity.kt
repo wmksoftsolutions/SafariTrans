@@ -3,10 +3,14 @@ package com.google.mlkit.vision.demo.kotlin
 import android.content.Context
 import android.content.Intent
 import android.content.pm.PackageManager
+import android.media.AudioManager
+import android.media.ToneGenerator
 import android.os.Build.VERSION
 import android.os.Build.VERSION_CODES
 import android.os.Bundle
 import android.util.Log
+import android.view.View
+import android.widget.TextView
 import android.widget.Toast
 import androidx.annotation.RequiresApi
 import androidx.appcompat.app.AppCompatActivity
@@ -16,16 +20,19 @@ import androidx.camera.core.ImageProxy
 import androidx.camera.core.Preview
 import androidx.camera.lifecycle.ProcessCameraProvider
 import androidx.camera.view.PreviewView
+import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import com.google.android.gms.common.annotation.KeepName
 import com.google.mlkit.common.MlKitException
+import com.google.mlkit.updatestatus.UpdateWholeContainerStatusActivity
+import com.google.mlkit.utils.CommonMethods
 import com.google.mlkit.vision.demo.*
 import com.google.mlkit.vision.demo.kotlin.barcodescanner.BarcodeScannerProcessor
 import com.google.mlkit.vision.demo.preference.PreferenceUtils
-import java.util.*
+
 
 /** Live preview demo app for ML Kit APIs using CameraX.  */
 @KeepName
@@ -44,7 +51,9 @@ class CameraXLivePreviewActivity :
     private var selectedModel = BARCODE_SCANNING
     private var lensFacing = CameraSelector.LENS_FACING_BACK
     private var cameraSelector: CameraSelector? = null
-
+    private var scanWholeContainer: Boolean = false
+    private var scannedCodeList = ArrayList<String>()
+    private lateinit var tv_counter: TextView
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         Log.d(TAG, "onCreate")
@@ -58,6 +67,7 @@ class CameraXLivePreviewActivity :
                 .show()
             return
         }
+
         if (savedInstanceState != null) {
             selectedModel =
                 savedInstanceState.getString(
@@ -65,8 +75,33 @@ class CameraXLivePreviewActivity :
                     BARCODE_SCANNING
                 )
         }
+
         cameraSelector = CameraSelector.Builder().requireLensFacing(lensFacing).build()
         setContentView(R.layout.activity_vision_camerax_live_preview)
+
+        val layout_counter = findViewById<ConstraintLayout>(R.id.layout_counter) as ConstraintLayout
+        tv_counter = layout_counter.findViewById<TextView>(R.id.count) as TextView
+        val btn_done = layout_counter.findViewById<TextView>(R.id.btn_done) as TextView
+
+        btn_done.setOnClickListener {
+            if (scannedCodeList.size > 0) {
+                val intent = Intent(this, UpdateWholeContainerStatusActivity::class.java)
+                intent.putExtra("list_codes", scannedCodeList)
+                startActivity(intent)
+            } else {
+                CommonMethods.showToast(applicationContext, getString(R.string.no_code_scanned))
+            }
+        }
+        if (intent != null && intent.hasExtra("scanWholeContainer")) {
+            scanWholeContainer = intent.getBooleanExtra("scanWholeContainer", false)
+            if (scanWholeContainer) {
+                layout_counter.visibility = View.VISIBLE
+                showCodeCount()
+            } else {
+                layout_counter.visibility = View.GONE
+            }
+        }
+
         previewView = findViewById(R.id.preview_view)
         if (previewView == null) {
             Log.d(TAG, "previewView is null")
@@ -90,18 +125,6 @@ class CameraXLivePreviewActivity :
                     }
                 }
             )
-
-       /* val settingsButton = findViewById<ImageView>(R.id.settings_button)
-        settingsButton.setOnClickListener {
-            val intent =
-                Intent(applicationContext, SettingsActivity::class.java)
-            intent.putExtra(
-                SettingsActivity.EXTRA_LAUNCH_SOURCE,
-                LaunchSource.CAMERAX_LIVE_PREVIEW
-            )
-            startActivity(intent)
-        }*/
-
         if (!allPermissionsGranted()) {
             runtimePermissions
         }
@@ -184,7 +207,7 @@ class CameraXLivePreviewActivity :
                         TAG,
                         "Using Barcode Detector Processor"
                     )
-                    BarcodeScannerProcessor(this, this)
+                    BarcodeScannerProcessor(this, this, scanWholeContainer)
                 }
                 else -> throw IllegalStateException("Invalid model name")
             }
@@ -329,9 +352,29 @@ class CameraXLivePreviewActivity :
 
     override fun scannedCode(value: String) {
         Log.e("==============", "=============" + value)
-        val intent = Intent()
-        intent.putExtra("code", value)
-        setResult(RESULT_OK, intent)
-        finish()
+        if (scanWholeContainer) {
+            if (!scannedCodeList.contains(value)) {
+                beep()
+                scannedCodeList.add(value)
+                showCodeCount()
+            } else
+                CommonMethods.showToast(applicationContext, getString(R.string.alreadyScannedCode))
+        } else {
+            beep()
+            val intent = Intent()
+            intent.putExtra("code", value)
+            setResult(RESULT_OK, intent)
+            finish()
+        }
+    }
+
+    private fun beep() {
+        val toneGen1 = ToneGenerator(AudioManager.STREAM_MUSIC, 100)
+        toneGen1.startTone(ToneGenerator.TONE_CDMA_PIP, 150)
+    }
+
+    private fun showCodeCount() {
+        tv_counter.visibility = View.VISIBLE
+        tv_counter.text = scannedCodeList.size.toString()
     }
 }

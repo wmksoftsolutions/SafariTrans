@@ -24,7 +24,11 @@ class CommonMethods {
     companion object {
         var customProgressDialog = CustomProgressDialog()
         fun showToast(applicationContext: Context, msg: String) {
-            Toast.makeText(applicationContext, msg, Toast.LENGTH_SHORT).show()
+            var toast: Toast? = null
+            if (toast != null)
+                toast.cancel()
+            toast = Toast.makeText(applicationContext, msg, Toast.LENGTH_SHORT)
+            toast.show()
         }
 
         fun isNetworkAvailable(context: Context): Boolean {
@@ -112,7 +116,7 @@ class CommonMethods {
             Locale.setDefault(locale)
             val resources: Resources = context.getResources()
             val config = resources.configuration
-            config.locale=locale
+            config.locale = locale
             resources.updateConfiguration(config, resources.displayMetrics)
         }
 

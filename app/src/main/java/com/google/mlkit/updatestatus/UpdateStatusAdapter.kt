@@ -1,4 +1,4 @@
-package com.google.mlkit.showstatus
+package com.google.mlkit.updatestatus
 
 import android.content.Context
 import android.view.LayoutInflater
@@ -6,6 +6,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.databinding.DataBindingUtil
 import androidx.recyclerview.widget.RecyclerView
+import com.google.mlkit.showstatus.Status
 import com.google.mlkit.vision.demo.R
 import com.google.mlkit.vision.demo.databinding.RowStatusDoneBinding
 import com.google.mlkit.vision.demo.databinding.RowStatusPendingBinding

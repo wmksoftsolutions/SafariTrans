@@ -8,7 +8,7 @@ import androidx.activity.result.contract.ActivityResultContracts.StartActivityFo
 import androidx.appcompat.app.AppCompatActivity
 import androidx.databinding.DataBindingUtil
 import com.google.mlkit.showstatus.ShowStatusActivity
-import com.google.mlkit.showstatus.UpdateStatusActivity
+import com.google.mlkit.updatestatus.UpdateStatusActivity
 import com.google.mlkit.utils.CommonMethods
 import com.google.mlkit.utils.Constants
 import com.google.mlkit.utils.ResultStatus
@@ -45,6 +45,11 @@ class HomeActivity : AppCompatActivity() {
             startForResult.launch(Intent(this, CameraXLivePreviewActivity::class.java))
         }
 
+        binding.btnScanWholeContainer.setOnClickListener {
+            val intent=Intent(this, CameraXLivePreviewActivity::class.java)
+            intent.putExtra("scanWholeContainer",true)
+            startActivity(intent)
+        }
 
     }
 

@@ -28,7 +28,11 @@ import com.google.mlkit.vision.demo.OnCodeScanned
 import com.google.mlkit.vision.demo.kotlin.VisionProcessorBase
 
 /** Barcode Detector Demo.  */
-class BarcodeScannerProcessor(context: Context, var onCodeScanned: OnCodeScanned) :
+class BarcodeScannerProcessor(
+    context: Context,
+    var onCodeScanned: OnCodeScanned,
+    var scanWholeContainer: Boolean
+) :
     VisionProcessorBase<List<Barcode>>(context) {
 
     // Note that if you know which format of barcode your app is dealing with, detection will be
@@ -54,10 +58,13 @@ class BarcodeScannerProcessor(context: Context, var onCodeScanned: OnCodeScanned
         for (i in barcodes.indices) {
             val barcode = barcodes[i]
             graphicOverlay.add(BarcodeGraphic(graphicOverlay, barcode))
-//      logExtrasForTesting(barcode)
             if (barcode.displayValue != null) {
-                onCodeScanned.scannedCode(barcode.displayValue!!)
-                break
+//                if (scanWholeContainer) {
+//                    onCodeScanned.scannedCode(barcode.displayValue!!)
+//                } else {
+                    onCodeScanned.scannedCode(barcode.displayValue!!)
+                    break
+//                }
             }
         }
     }

@@ -19,7 +19,7 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintVertical_bias="0.35"
+            app:layout_constraintVertical_bias="0.20"
             app:layout_constraintVertical_chainStyle="packed" />
 
         <androidx.appcompat.widget.AppCompatButton
@@ -28,14 +28,13 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="@dimen/value_40"
             android:background="@drawable/shape_button"
-            android:inputType="textImeMultiLine"
             android:paddingStart="@dimen/value_20"
             android:paddingTop="@dimen/value_5"
             android:paddingEnd="@dimen/value_20"
             android:paddingBottom="@dimen/value_5"
             android:text="@string/scan_code"
             android:textColor="@color/white"
-            android:textSize="@dimen/size_14"
+            android:textSize="@dimen/size_16"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
@@ -48,17 +47,35 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="@dimen/value_40"
             android:background="@drawable/shape_button"
-            android:inputType="textImeMultiLine"
             android:paddingStart="@dimen/value_20"
             android:paddingTop="@dimen/value_5"
             android:paddingEnd="@dimen/value_20"
             android:paddingBottom="@dimen/value_5"
             android:text="@string/track_shipment"
             android:textColor="@color/white"
-            android:textSize="@dimen/size_14"
+            android:textSize="@dimen/size_16"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/btn_scancode"
+            app:layout_constraintVertical_chainStyle="packed" />
+
+        <androidx.appcompat.widget.AppCompatButton
+            android:id="@+id/btn_scan_whole_container"
+            android:layout_width="@dimen/width_button"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/value_40"
+            android:background="@drawable/shape_button_gray"
+            android:paddingStart="@dimen/value_20"
+            android:paddingTop="@dimen/value_5"
+            android:paddingEnd="@dimen/value_20"
+            android:textAllCaps="true"
+            android:paddingBottom="@dimen/value_5"
+            android:text="@string/scan_whole_container"
+            android:textColor="@color/colorAccent"
+            android:textSize="@dimen/size_16"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/btn_track_shipment"
             app:layout_constraintVertical_chainStyle="packed" />
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

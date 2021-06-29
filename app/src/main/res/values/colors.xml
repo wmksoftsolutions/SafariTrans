@@ -20,5 +20,8 @@
     <color name="hint_color">#979595</color>
     <color name="black">#000000</color>
     <color name="button_color">#931b1e</color>
+    <color name="button_colorGrey">#b3b3b3</color>
     <color name="colorLightGray">#83000000</color>
+    <color name="counter_bg">#808080</color>
+    <color name="counter_color">#f7943a</color>
 </resources>

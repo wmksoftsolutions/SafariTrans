@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@android:color/transparent"
+    android:padding="@dimen/value_10"
+    android:visibility="visible">
+
+    <TextView
+        android:id="@+id/tv_count"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:padding="@dimen/value_5"
+        android:text="@string/counter"
+        android:textColor="@color/counter_color"
+        android:textSize="@dimen/size_16"
+        android:textStyle="bold"
+        app:layout_constraintTop_toTopOf="@id/count"
+        app:layout_constraintBottom_toBottomOf="@id/count"
+        app:layout_constraintEnd_toStartOf="@id/count" />
+
+    <TextView
+        android:id="@+id/count"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:padding="@dimen/value_5"
+        android:minWidth="@dimen/value_50"
+        android:textColor="@color/white"
+        android:textSize="@dimen/size_20"
+        android:textStyle="bold"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/btn_done"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:minWidth="@dimen/value_100"
+        android:minHeight="@dimen/value_50"
+        android:padding="@dimen/value_10"
+        android:text="@string/done"
+        android:textColor="@color/white"
+        android:textSize="@dimen/size_16"
+        android:textStyle="bold"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent"/>
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>

@@ -30,8 +30,13 @@
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
         android:theme="@style/Theme.AppCompat">
-        <activity android:name="com.google.mlkit.laguage.SelectLanguageActivity" android:theme="@style/AppTheme" />
-        <activity android:name="com.google.mlkit.showstatus.UpdateStatusActivity" />
+        <activity
+            android:name="com.google.mlkit.updatestatus.UpdateWholeContainerStatusActivity"
+            android:theme="@style/AppTheme" />
+        <activity
+            android:name="com.google.mlkit.laguage.SelectLanguageActivity"
+            android:theme="@style/AppTheme" />
+        <activity android:name="com.google.mlkit.updatestatus.UpdateStatusActivity" />
         <activity android:name="com.google.mlkit.showstatus.ShowStatusActivity" />
         <activity
             android:name="com.google.mlkit.home.HomeActivity"

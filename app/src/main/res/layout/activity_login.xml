@@ -130,7 +130,6 @@
                 android:layout_marginTop="@dimen/value_30"
                 android:layout_marginBottom="@dimen/value_20"
                 android:background="@drawable/shape_button"
-                android:inputType="textImeMultiLine"
                 android:paddingStart="@dimen/value_20"
                 android:paddingTop="@dimen/value_5"
                 android:paddingEnd="@dimen/value_20"

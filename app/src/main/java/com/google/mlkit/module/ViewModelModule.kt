@@ -2,7 +2,7 @@ package com.google.mlkit.module
 
 import com.google.mlkit.home.HomeViewModel
 import com.google.mlkit.login.LoginViewModel
-import com.google.mlkit.showstatus.UpdateStatusViewModel
+import com.google.mlkit.updatestatus.UpdateStatusViewModel
 import org.koin.dsl.module
 
 var viewModelModule = module {

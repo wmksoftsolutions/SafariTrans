@@ -124,12 +124,14 @@
     <string name="pref_key_segmentation_raw_size_mask" translatable="false">srsm</string>
 
 
+    <string name="update_status">Update Status</string>
     <string name="username">Username</string>
     <string name="password">Password</string>
     <string name="remember_me">Remember Me</string>
     <string name="login">Login</string>
     <string name="scan_code">Scan BarCode</string>
     <string name="track_shipment">Track Shipment</string>
+    <string name="scan_whole_container">Scan Whole Container</string>
     <string name="username_cant_empty">Username can\'t be empty</string>
     <string name="password_cant_empty">Password can\'t be empty</string>
     <string name="password_musthave_min">Password must have minimum 6 characters</string>
@@ -141,4 +143,9 @@
     <string name="english">English</string>
     <string name="french">Francais</string>
     <string name="forgot_password">Forgot Password?</string>
+    <string name="alreadyScannedCode">Code Already Scanned</string>
+    <string name="count">Count</string>
+    <string name="counter">Counter</string>
+    <string name="no_code_scanned">No Code Scanned</string>
+
 </resources>

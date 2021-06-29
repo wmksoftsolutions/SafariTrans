@@ -1,4 +1,4 @@
-package com.google.mlkit.showstatus
+package com.google.mlkit.updatestatus
 
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
@@ -6,6 +6,7 @@ import androidx.databinding.DataBindingUtil
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.google.mlkit.home.Data
 import com.google.mlkit.home.TrackStatusResponse
+import com.google.mlkit.showstatus.Status
 import com.google.mlkit.utils.CommonMethods
 import com.google.mlkit.utils.Constants
 import com.google.mlkit.utils.ResultStatus
@@ -37,7 +38,7 @@ class UpdateStatusActivity : AppCompatActivity(), UpdateStatusInterface {
 
     }
 
-    private fun updateStatusResult() {
+    private fun updateStatusHitApi() {
         if (CommonMethods.isNetworkAvailable(this)) {
             val updateStatusRequest = UpdateStatusRequest(
                 shipment_id,
@@ -106,7 +107,6 @@ class UpdateStatusActivity : AppCompatActivity(), UpdateStatusInterface {
     override fun onUpdateStatus(position: Int) {
         list_status.get(position).status = "1"
         updateStatusAdapter.refresh()
-        updateStatusResult()
-
+        updateStatusHitApi()
     }
 }
