@@ -35,7 +35,7 @@
             android:theme="@style/AppTheme" />
         <activity
             android:name="com.google.mlkit.laguage.SelectLanguageActivity"
-            android:theme="@style/AppTheme" />
+            android:theme="@style/AppTheme1" />
         <activity android:name="com.google.mlkit.updatestatus.UpdateStatusActivity" />
         <activity android:name="com.google.mlkit.showstatus.ShowStatusActivity" />
         <activity

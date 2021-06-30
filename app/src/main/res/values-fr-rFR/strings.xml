@@ -29,5 +29,6 @@
     <string name="no_code_scanned">Aucun code scanné</string>
     <string name="update_status">État de la mise à jour</string>
     <string name="change_language">Changer de langue</string>
+    <string name="select_language">Choisir la langue</string>
     <string name="logout">Se déconnecter</string>
 </resources>

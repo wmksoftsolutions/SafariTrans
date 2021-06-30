@@ -25,6 +25,11 @@ class SelectLanguageActivity : AppCompatActivity() {
         if (intent != null && intent.hasExtra("isFromSplash")) {
             isFromSplash = intent.getBooleanExtra("isFromSplash", true)
         }
+        if (isFromSplash)
+            title = getString(R.string.select_language
+            )
+        else
+            title = getString(R.string.change_language)
         binding.btnEnglisgh.setOnClickListener {
             changeLanguage(engLanguage)
         }
