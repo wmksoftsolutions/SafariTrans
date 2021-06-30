@@ -1,5 +1,6 @@
 package com.google.mlkit.updatestatus
 
+import android.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.View
@@ -43,7 +44,7 @@ class UpdateWholeContainerStatusActivity : AppCompatActivity() {
         list_status.add("completed")
         val adapter = ArrayAdapter(
             this,
-            android.R.layout.simple_dropdown_item_1line,list_status
+            android.R.layout.simple_dropdown_item_1line, list_status
         )
         adapter.setDropDownViewResource(R.layout.spinnerview)
         binding.spinnerStatus.adapter = adapter
@@ -88,7 +89,7 @@ class UpdateWholeContainerStatusActivity : AppCompatActivity() {
                             CommonMethods.hideLoader()
                             if (it.data != null) {
                                 val response = it.data as TrackStatusResponse
-                                CommonMethods.showToast(applicationContext, response.message)
+                                showAlertDialog(response.message)
                             }
                         }
                     }
@@ -96,5 +97,24 @@ class UpdateWholeContainerStatusActivity : AppCompatActivity() {
             }
         } else
             CommonMethods.showToast(applicationContext, getString(R.string.check_interent))
+    }
+
+    private fun showAlertDialog(message: String) {
+        val builder = AlertDialog.Builder(this)
+
+        builder.setMessage(message)
+        builder.setIcon(android.R.drawable.ic_dialog_alert)
+
+        //performing positive action
+        builder.setPositiveButton(getString(R.string.ok)) { dialogInterface, which ->
+            dialogInterface.cancel()
+            setResult(RESULT_OK)
+            finish()
+        }
+        // Create the AlertDialog
+        val alertDialog: AlertDialog = builder.create()
+        // Set other dialog properties
+        alertDialog.setCancelable(false)
+        alertDialog.show()
     }
 }

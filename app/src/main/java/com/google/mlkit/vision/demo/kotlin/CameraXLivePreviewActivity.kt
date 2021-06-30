@@ -1,5 +1,6 @@
 package com.google.mlkit.vision.demo.kotlin
 
+import android.app.Activity
 import android.content.Context
 import android.content.Intent
 import android.content.pm.PackageManager
@@ -12,6 +13,8 @@ import android.util.Log
 import android.view.View
 import android.widget.TextView
 import android.widget.Toast
+import androidx.activity.result.ActivityResult
+import androidx.activity.result.contract.ActivityResultContracts
 import androidx.annotation.RequiresApi
 import androidx.appcompat.app.AppCompatActivity
 import androidx.camera.core.CameraSelector
@@ -83,11 +86,19 @@ class CameraXLivePreviewActivity :
         tv_counter = layout_counter.findViewById<TextView>(R.id.count) as TextView
         val btn_done = layout_counter.findViewById<TextView>(R.id.btn_done) as TextView
 
+        val startForResult =
+            registerForActivityResult(ActivityResultContracts.StartActivityForResult()) { result: ActivityResult ->
+                if (result.resultCode == Activity.RESULT_OK) {
+                  finish()
+                }
+
+            }
+
         btn_done.setOnClickListener {
             if (scannedCodeList.size > 0) {
                 val intent = Intent(this, UpdateWholeContainerStatusActivity::class.java)
                 intent.putExtra("list_codes", scannedCodeList)
-                startActivity(intent)
+                startForResult.launch(intent)
             } else {
                 CommonMethods.showToast(applicationContext, getString(R.string.no_code_scanned))
             }
