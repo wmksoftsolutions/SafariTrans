@@ -4,6 +4,7 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.View
 import android.widget.AdapterView
+import android.widget.ArrayAdapter
 import androidx.databinding.DataBindingUtil
 import androidx.databinding.adapters.AdapterViewBindingAdapter
 import com.google.mlkit.home.TrackStatusResponse
@@ -11,6 +12,7 @@ import com.google.mlkit.utils.CommonMethods
 import com.google.mlkit.utils.ResultStatus
 import com.google.mlkit.vision.demo.R
 import com.google.mlkit.vision.demo.databinding.ActivityUpdateWholeContainerStatusBinding
+import org.koin.android.ext.android.bind
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
 class UpdateWholeContainerStatusActivity : AppCompatActivity() {
@@ -33,26 +35,43 @@ class UpdateWholeContainerStatusActivity : AppCompatActivity() {
             }
         }
 
-        /*    binding.spinnerStatus.onItemSelectedListener(object :AdapterView.OnItemSelectedListener{
-                override fun onItemSelected(p0: AdapterView<*>?, p1: View?, p2: Int, p3: Long) {
+        val list_status = ArrayList<String>()
+        list_status.add("in_warehouse")
+        list_status.add("en_route")
+        list_status.add("arrived")
+        list_status.add("pickup")
+        list_status.add("completed")
+        val adapter = ArrayAdapter(
+            this,
+            android.R.layout.simple_dropdown_item_1line,list_status
+        )
+        adapter.setDropDownViewResource(R.layout.spinnerview)
+        binding.spinnerStatus.adapter = adapter
 
-                }
-
-                override fun onNothingSelected(p0: AdapterView<*>?) {
-
-                }
-            })
-            binding.btnUpdatestatus.setOnClickListener {
-                updateStatusHitApi()
+        binding.spinnerStatus.onItemSelectedListener = object :
+            AdapterView.OnItemSelectedListener {
+            override fun onItemSelected(
+                parent: AdapterView<*>,
+                view: View, position: Int, id: Long
+            ) {
+                status_name = list_status.get(position)
             }
-    */
+
+            override fun onNothingSelected(parent: AdapterView<*>) {
+
+            }
+        }
+
+        binding.btnUpdatestatus.setOnClickListener {
+            updateStatusHitApi()
+        }
     }
 
     private fun updateStatusHitApi() {
         if (CommonMethods.isNetworkAvailable(this)) {
             val updateStatusRequest = UpdateWholeStatusRequest(
                 shipment_id,
-                "", "1"
+                status_name, "1"
             )
             updateStatusViewModel.updateWholeContainerStatus(updateStatusRequest)
             if (!updateStatusViewModel.statusWholeContainerResponse.hasObservers()) {
