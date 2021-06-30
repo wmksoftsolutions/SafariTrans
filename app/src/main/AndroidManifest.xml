@@ -40,7 +40,7 @@
         <activity android:name="com.google.mlkit.showstatus.ShowStatusActivity" />
         <activity
             android:name="com.google.mlkit.home.HomeActivity"
-            android:theme="@style/AppTheme" />
+            android:theme="@style/AppTheme1" />
         <activity
             android:name="com.google.mlkit.login.LoginActivity"
             android:theme="@style/AppTheme" />

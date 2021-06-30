@@ -15,6 +15,7 @@
             android:layout_width="@dimen/logo_width1"
             android:layout_height="@dimen/logo_height1"
             android:src="@drawable/safari_trans"
+            android:visibility="gone"
             app:layout_constraintBottom_toTopOf="@id/btn_englisgh"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"

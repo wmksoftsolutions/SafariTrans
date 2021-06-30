@@ -145,6 +145,10 @@ class CommonMethods {
             return getSharedPref(context).getString(Constants.LANGUAGE_NAME, "")
         }
 
+        fun clearSharedPref(context: Context) {
+            getSharedPref(context).edit().clear().apply()
+        }
+
 
     }
 }

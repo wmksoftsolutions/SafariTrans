@@ -3,10 +3,15 @@ package com.google.mlkit.home
 import android.app.Activity
 import android.content.Intent
 import android.os.Bundle
+import android.view.Menu
+import android.view.MenuInflater
+import android.view.MenuItem
 import androidx.activity.result.ActivityResult
 import androidx.activity.result.contract.ActivityResultContracts.StartActivityForResult
 import androidx.appcompat.app.AppCompatActivity
 import androidx.databinding.DataBindingUtil
+import com.google.mlkit.laguage.SelectLanguageActivity
+import com.google.mlkit.login.LoginActivity
 import com.google.mlkit.showstatus.ShowStatusActivity
 import com.google.mlkit.updatestatus.UpdateStatusActivity
 import com.google.mlkit.utils.CommonMethods
@@ -46,10 +51,32 @@ class HomeActivity : AppCompatActivity() {
         }
 
         binding.btnScanWholeContainer.setOnClickListener {
-            val intent=Intent(this, CameraXLivePreviewActivity::class.java)
-            intent.putExtra("scanWholeContainer",true)
+            val intent = Intent(this, CameraXLivePreviewActivity::class.java)
+            intent.putExtra("scanWholeContainer", true)
             startActivity(intent)
         }
+
+    }
+
+    override fun onCreateOptionsMenu(menu: Menu?): Boolean {
+        MenuInflater(this).inflate(R.menu.homemenu, menu)
+        return super.onCreateOptionsMenu(menu)
+    }
+
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        when (item.itemId) {
+            R.id.change_lang -> {
+                val intent = Intent(this, SelectLanguageActivity::class.java)
+                intent.putExtra("isFromSplash", false)
+                startActivity(intent)
+            }
+            R.id.logout -> {
+                CommonMethods.clearSharedPref(this)
+                startActivity(Intent(this, LoginActivity::class.java))
+                finishAffinity()
+            }
+        }
+        return true
 
     }
 
@@ -75,7 +102,7 @@ class HomeActivity : AppCompatActivity() {
                             if (trackStatusData != null && trackStatusData.size > 0) {
                                 if (isCustomer) {
                                     val intent = Intent(this, ShowStatusActivity::class.java)
-                                    intent.putExtra(Constants.SHIPMENT_ID,shipment_id)
+                                    intent.putExtra(Constants.SHIPMENT_ID, shipment_id)
                                     intent.putParcelableArrayListExtra(
                                         Constants.TRACK_STATUS_DATA,
                                         trackStatusData
@@ -83,7 +110,7 @@ class HomeActivity : AppCompatActivity() {
                                     startActivity(intent)
                                 } else {
                                     val intent = Intent(this, UpdateStatusActivity::class.java)
-                                    intent.putExtra(Constants.SHIPMENT_ID,shipment_id)
+                                    intent.putExtra(Constants.SHIPMENT_ID, shipment_id)
                                     intent.putParcelableArrayListExtra(
                                         Constants.TRACK_STATUS_DATA,
                                         trackStatusData

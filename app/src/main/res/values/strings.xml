@@ -147,5 +147,7 @@
     <string name="count">Count</string>
     <string name="counter">Counter</string>
     <string name="no_code_scanned">No Code Scanned</string>
+    <string name="change_language">Change Language</string>
+    <string name="logout">Logout</string>
 
 </resources>
